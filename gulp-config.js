@@ -5,7 +5,7 @@
   const paths = {
     js: `${themeDir}/components/_patterns/**/*.js`,
     dist_js: `${themeDir}/dist`,
-    sass: themeDir,
+    sass: `${themeDir}/components/_patterns/`,
     icons: `${themeDir}/images/icons/src`,
     img: [
       `${themeDir}/images/**/*`,
@@ -34,7 +34,7 @@
       dest: `${themeDir}/dist/`,
       flattenDestOutput: true,
       lint: {
-        enabled: false,
+        enabled: true,
         failOnError: true,
       },
       cleanCSS: {
