@@ -29,8 +29,8 @@
     },
     cssConfig: {
       src: `${themeDir}/components/_patterns/**/*.scss`,
-      sass: `${themeDir}/components/_patterns/`,
-      style: `!${themeDir}/components/_patterns/style.scss`,
+      style: `${themeDir}/components/_patterns/style.scss`,
+      patterns: `${themeDir}/components/_patterns/`,
       dest: `${themeDir}/dist/`,
       flattenDestOutput: true,
       lint: {
