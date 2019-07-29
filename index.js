@@ -96,7 +96,7 @@ module.exports = (gulp, config) => {
   /**
    * Task for running browserSync.
    */
-  gulp.task('serve', ['css', 'scripts', 'watch:pl'], () => {
+  gulp.task('theme', ['validate', 'css', 'scripts', 'watch:pl'], () => {
     if (config.browserSync.domain) {
       browserSync.init({
         injectChanges: true,
@@ -121,16 +121,11 @@ module.exports = (gulp, config) => {
       });
     }
     gulp.watch(config.paths.js, ['scripts']);
-    gulp.watch(`${config.paths.sass}/**/*.scss`, ['css']).on('change', (event) => {
+    gulp.watch(`${config.paths.sass}/**/*.scss`, ['validate:css', 'css']).on('change', (event) => {
       pa11y.pa11yTest(event.path, browserSync, config);
     });
     gulp.watch(config.patternLab.scssToYAML[0].src, ['pl:scss-to-yaml']);
   });
-
-  /**
-   * Theme task declaration
-   */
-  gulp.task('theme', ['serve']);
 
   gulp.task('compile', tasks.compile);
   gulp.task('validate', tasks.validate);
@@ -139,7 +134,7 @@ module.exports = (gulp, config) => {
   gulp.task('default', tasks.default);
 
   /**
-   * Theme task declaration
+   * Build task declaration
    */
   gulp.task('build', ['compile', 'scripts', 'css']);
 
