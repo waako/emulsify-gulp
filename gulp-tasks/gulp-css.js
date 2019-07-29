@@ -50,19 +50,26 @@ const cleanCSS = require('gulp-clean-css');
 
     gulp.task('css', 'Compile Scss to CSS using Libsass with Autoprefixer and SourceMaps', cssCompile);
 
-    gulp.task('validate:css', 'Lint Scss files', () => {
-      let [src] = cssConfig.src;
+    function scssLint(done) {
+      let [src] = [
+        cssConfig.src,
+        !cssConfig.style
+      ];
       if (cssConfig.lint.extraSrc) {
         src = src.concat(cssConfig.lint.extraSrc);
       }
       return gulp.src(src)
         .pipe(cached('validate:css'))
         .pipe(stylelint({
+          fix: true,
           reporters: [{
             formatter: 'string', console: true,
           }],
-        }));
-    });
+        }))
+        .pipe(gulp.dest(cssConfig.patterns));
+    }
+
+    gulp.task('validate:css', 'Lint Scss files', scssLint);
 
     gulp.task('watch:css', () => {
       const tasks = ['css'];
